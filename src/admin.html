@@ -5,31 +5,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/default.css">
   <title>Document</title>
-  <style>
-    p{
-      margin: 0;
-    }
-    #container {
-      padding: 50px 80px;
-      border: 2px dashed #ddd;
-      border-radius: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 200px;
-      flex-direction: column;
-    }
-  </style>
 </head>
 
 <body>
 
-  <div id="container">
-    <span id="xxx">点击或拖拽文件</span>
-    <p>文件大小不能超过10Mb</p>
+  <div class="page">
+    <aside class="sideBar">
+      <div class="newSong">
+        新建歌曲
+      </div>
+      <ul class="songList">
+        <li class="active">歌曲1</li>
+        <li>歌曲2</li>
+        <li>歌曲3</li>
+        <li>歌曲4</li>
+        <li>歌曲5</li>
+        <li>歌曲6</li>
+        <li>歌曲7</li>
+        <li>歌曲8</li>
+        <li>歌曲9</li>
+        <li>歌曲10</li>
+      </ul>
+      <div class="uploadArea">
+        <div id="container" class="container">
+          <div id="uploadButton" class="browse">
+            <p>点击或拖拽文件</p>
+            <p>文件大小不能超过10Mb</p>
+          </div>
+        </div>
+        <div id="UploadStatus"></div>
+      </div>
+    </aside>
+    <main>
+      <form class="form">
+        <div class="row">
+          <label>
+            歌名
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            歌手
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <label>
+            外链
+            <input type="text">
+          </label>
+        </div>
+        <div class="row">
+          <button>保存</button>
+        </div>
+      </form>
+    </main>
   </div>
-<div id="UploadStatus"></div>
+
+
 
 
   <!-- 存储服务 -->
@@ -49,7 +85,7 @@
   <script>
     var uploader = Qiniu.uploader({
       runtimes: 'html5', // 上传模式，依次退化
-      browse_button: 'xxx', // 上传选择的点选按钮，必需
+      browse_button: 'uploadButton', // 上传选择的点选按钮，必需
       // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
       // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
       // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
@@ -104,9 +140,10 @@
           //    "key": "gogopher.jpg"
           //  }
           // 查看简单反馈
-          // var domain = up.getOption('domain');
-          // var res = parseJSON(info.response);
-          // var sourceLink = domain +"/"+ res.key; 获取上传成功后的文件的Url
+          var domain = up.getOption('domain');
+          var response = JSON.parse(info.response);
+          var sourceLink = domain + "/" + encodeURIComponent(response.key); //获取上传成功后的文件的Url
+          console.log(sourceLink)
         },
         'Error': function (up, err, errTip) {
           //上传出错时，处理相关的事情
