@@ -24,6 +24,12 @@ body {
   line-height: 1.5;
 }
 
+input {
+  font: inherit;
+}
+
+/* page */
+
 .page {
   display: flex;
   height: 100vh;
@@ -37,6 +43,9 @@ body {
 
 .page>main {
   flex-grow: 1;
+  padding-left: 20px;
+  padding-top: 20px;
+  background: #d4d4d4;
 }
 
 /* aside */
@@ -46,8 +55,11 @@ body {
   padding: 10px;
 }
 
-.songList {
+#songList-container {
   flex-grow: 1;
+}
+
+.songList {
   text-align: left;
   border-top: 1px solid #000;
 }
@@ -61,8 +73,6 @@ body {
 .songList>li.active {
   background: #d4d4d4;
 }
-
-.uplodeArea {}
 
 .container {
   text-align: center;
@@ -79,4 +89,44 @@ body {
   width: 100%;
   padding: 20px;
   cursor: pointer;
+}
+
+/* main */
+
+.form {
+  font-size: 14px;
+}
+
+.form>.row {
+  margin: 20px 0;
+  display: flex;
+}
+
+.form>.row>label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 5px;
+  text-align: right;
+  width: 4em;
+}
+
+.form>.row.actions {
+  margin-left: calc(4em + 5px);
+}
+
+.form input[type=text] {
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 30px;
+}
+
+.form input[type=butoon],
+.form input[type=submit],
+.form button {
+  height: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
 }
