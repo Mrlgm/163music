@@ -77,7 +77,7 @@
             var singer = response.key.split('-')
             var name = singer[1].split('.')
 
-            window.eventHub.triger('upload', {
+            window.eventHub.triger('new', {
               url: sourceLink,
               name: name[0],
               singer: singer[0]
