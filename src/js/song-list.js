@@ -10,7 +10,7 @@
       let songs = data.songs
       let liList = songs.map((song) => {
         let li = $('<li></li>')
-        li.text(song.name+'-'+song.singer)
+        li.text(song.name + '-' + song.singer)
         return li
       })
       $el.find('ul').empty()
@@ -23,11 +23,28 @@
       $(this.el).find('.active').removeClass('active')
     }
   }
+
   let model = {
     data: {
       songs: []
+    },
+    find() {
+      var query = new AV.Query('Song');
+      return query.find().then((Song) => {
+        // 成功获得实例
+        // Song 就是 Song 的对象实例
+        let songs = Song.map((song) => {
+          return {
+            id: song.id,
+            ...song.attributes
+          }
+        })
+        this.data.songs = songs
+        return songs
+      });
     }
   }
+
   let controller = {
     init(view, model) {
       this.view = view
@@ -38,6 +55,9 @@
       })
       window.eventHub.on('create', (songData) => {
         this.model.data.songs.push(songData)
+        this.view.render(this.model.data)
+      })
+      this.model.find().then(() => {
         this.view.render(this.model.data)
       })
     }
