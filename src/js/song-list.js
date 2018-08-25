@@ -8,10 +8,13 @@
       let $el = $(this.el)
       $el.html(this.template)
       let songs = data.songs
+      let selectedSongId = data.selectedSongId
       let liList = songs.map((song) => {
-        let li = $('<li></li>')
-        li.text(song.name + '-' + song.singer).attr('data-id', song.id)
-        return li
+        let $li = $('<li></li>').text(song.name + '-' + song.singer).attr('data-id', song.id)
+        if(song.id === selectedSongId){
+          $li.addClass('active')
+        }
+        return $li
       })
       $el.find('ul').empty()
 
@@ -30,7 +33,8 @@
 
   let model = {
     data: {
-      songs: []
+      songs: [],
+      selectedSongId: undefined
     },
     find() {
       var query = new AV.Query('Song');
@@ -65,8 +69,11 @@
     },
     bindEvents(e) {
       $(this.view.el).on('click', 'li', (e) => {
-        this.view.activeItem(e.currentTarget)
         let songId = e.currentTarget.getAttribute('data-id')
+
+        this.model.data.selectedSongId = songId
+        this.view.render(this.model.data)
+
         let data
         let songs = this.model.data.songs
         for (let i = 0; i < songs.length; i++) {
