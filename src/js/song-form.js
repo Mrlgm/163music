@@ -74,6 +74,10 @@
       window.eventHub.on('upload', (data) => {
         this.view.render(data)
       })
+      window.eventHub.on('select',(data)=>{
+        this.model.data = data
+        this.view.render(this.model.data)
+      })
     },
     bindEvents() {
       this.view.$el.on('submit', 'form', (e) => {

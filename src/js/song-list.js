@@ -67,7 +67,17 @@
       $(this.view.el).on('click', 'li', (e) => {
         this.view.activeItem(e.currentTarget)
         let songId = e.currentTarget.getAttribute('data-id')
-        window.eventHub.triger('select', songId)
+        let data
+        let songs = this.model.data.songs
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === songId) {
+            data = songs[i]
+            break
+          }
+        }
+        let object = JSON.parse(JSON.stringify(data))//深拷贝，避免修改了地址
+
+        window.eventHub.triger('select', object)
       })
     },
     bindEventHub() {
