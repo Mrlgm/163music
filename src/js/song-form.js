@@ -53,8 +53,9 @@
       id: ''
     },
     create(data) {
-      var Song = AV.Object.extend('Song');
-      var song = new Song();
+      let Song = AV.Object.extend('Song');
+      let song = new Song();
+
       return song.save({
         name: data.name,
         singer: data.singer,
@@ -68,6 +69,21 @@
         }
       }, (error) => {
         console.log(error)
+      })
+    },
+    updata(data) {//卧槽，坑爹的文档，代码创建和手动创建的权限不一样
+      // 第一个参数是 className，第二个参数是 objectId
+      let Song = AV.Object.createWithoutData('Song', this.data.id);
+      // 修改属性
+      // 保存到云端
+      return Song.save({
+        singer: data.singer,
+        name: data.name,
+        url: data.url
+      }).then((response) => {
+        console.log(response)
+        Object.assign(this.data, data)
+        return response
       })
     }
   }
@@ -93,19 +109,35 @@
         this.view.render(this.model.data)
       })
     },
+    create() {
+      let needs = 'name singer url'.split(' ')
+      let data = {}
+      needs.map((string) => {
+        data[string] = this.view.$el.find(`[name="${string}"]`).val()
+      })
+      this.model.create(data).then(() => {
+        this.view.reset()
+        window.eventHub.triger('create', this.model.data)
+      })
+    },
+    updata() {
+      let needs = 'name singer url'.split(' ')
+      let data = {}
+      needs.map((string) => {
+        data[string] = this.view.$el.find(`[name="${string}"]`).val()
+      })
+      this.model.updata(data).then(() => {
+        window.eventHub.triger('updata', JSON.parse(JSON.stringify(this.model.data)))
+      })
+    },
     bindEvents() {
       this.view.$el.on('submit', 'form', (e) => {
         e.preventDefault()
-        let needs = 'name singer url'.split(' ')
-        let data = {}
-        needs.map((string) => {
-          data[string] = this.view.$el.find(`[name="${string}"]`).val()
-        })
-        this.model.create(data).then(() => {
-          console.log(this.model.data)
-          this.view.reset()
-          window.eventHub.triger('create', this.model.data)
-        })
+        if (this.model.data.id) {
+          this.updata()
+        } else {
+          this.create()
+        }
       })
     }
   }

@@ -75,7 +75,7 @@
             break
           }
         }
-        let object = JSON.parse(JSON.stringify(data))//深拷贝，避免修改了地址
+        let object = JSON.parse(JSON.stringify(data)) //深拷贝，避免修改了地址
 
         window.eventHub.triger('select', object)
       })
@@ -85,8 +85,19 @@
         this.model.data.songs.push(songData)
         this.view.render(this.model.data)
       })
-      window.eventHub.on('new',()=>{
+      window.eventHub.on('new', () => {
         this.view.clearActive()
+      })
+      window.eventHub.on('updata', (song) => {
+        console.log('cccccccc')
+        console.log(song)
+        let songs = this.model.data.songs
+        for (let i = 0; i < songs.length; i++) {
+          if (songs[i].id === song.id) {
+            Object.assign(songs[i], song)
+          }
+        }
+        this.view.render(this.model.data)
       })
     }
   }
