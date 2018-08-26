@@ -1,1 +1,93 @@
-h1{color: red;}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.container>header {
+  height: 64px;
+  padding: 0 10px;
+  background: #D43C33;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container>footer {
+  display: flex;
+  height: 40px;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.container>footer>ul {
+  width: 100%;
+  display: flex;
+}
+
+.container>footer>ul>li {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container>footer>ul>li .navWrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+}
+
+.container>footer>ul>li .navWrapper.active{
+  border-bottom: 2px solid #D33931;
+}
+
+.container>main {
+  flex: 1;
+  overflow: auto;
+  padding: 20px 0;
+}
+
+.container>main h2 {
+  font-size: 17px;
+  padding-left: 9px;
+  border-left: 2px solid #D33931;
+  margin-bottom: 14px;
+}
+
+.container>main>.recommedSongList {
+  padding-bottom: 24px;
+}
+
+.container>main .recommedWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.container>main .recommedWrapper>.recommedSong {
+  display: flex;
+  flex-direction: column;
+}
+
+.container>main .recommedWrapper>.recommedSong img {
+  height: 122.88px;
+  width: 122.88px;
+}
+
+.container>main .recommedWrapper>.recommedSong p {
+  width: 122.88px;
+  font-size: 13px;
+  padding: 6px 2px 0 6px;
+  line-height: 1.2;
+}
