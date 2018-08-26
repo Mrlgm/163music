@@ -8,6 +8,10 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container {
   display: flex;
   height: 100vh;
@@ -23,32 +27,58 @@ ul {
   align-items: center;
 }
 
-.container>footer {
+.container>header>.name {
+  display: flex;
+}
+
+.container>header>.name>img {
+  width: 22.5px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.container>header>.name>h1 {
+  color: #FFFFFF;
+  font-size: 22px;
+  line-height: 25px;
+  font-style: italic;
+}
+
+.container>header>.download {
+  color: #FEFAF9;
+  font-size: 15px;
+  line-height: 30px;
+  padding: 0 10px;
+  border: 1px solid #ECA09B;
+  border-radius: 15px;
+}
+
+.container>section {
   display: flex;
   height: 40px;
   border-bottom: 1px solid #E5E5E5;
 }
 
-.container>footer>ul {
+.container>section>ul {
   width: 100%;
   display: flex;
 }
 
-.container>footer>ul>li {
+.container>section>ul>li {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container>footer>ul>li .navWrapper {
+.container>section>ul>li .navWrapper {
   height: 100%;
   display: flex;
   align-items: center;
   padding: 0 3px;
 }
 
-.container>footer>ul>li .navWrapper.active{
+.container>section>ul>li .navWrapper.active {
   border-bottom: 2px solid #D33931;
 }
 
@@ -63,6 +93,8 @@ ul {
   padding-left: 9px;
   border-left: 2px solid #D33931;
   margin-bottom: 14px;
+  color: #333333;
+  line-height: 20px;
 }
 
 .container>main>.recommedSongList {
@@ -78,11 +110,23 @@ ul {
 .container>main .recommedWrapper>.recommedSong {
   display: flex;
   flex-direction: column;
+  width: 33.3%;
+}
+
+.container>main .recommedWrapper>.recommedSong:nth-child(1) {
+  padding-right: 2px;
+}
+
+.container>main .recommedWrapper>.recommedSong:nth-child(2) {
+  padding: 0 1px;
+}
+
+.container>main .recommedWrapper>.recommedSong:nth-child(3) {
+  padding-left: 2px;
 }
 
 .container>main .recommedWrapper>.recommedSong img {
-  height: 122.88px;
-  width: 122.88px;
+  width: 100%;
 }
 
 .container>main .recommedWrapper>.recommedSong p {
@@ -90,4 +134,49 @@ ul {
   font-size: 13px;
   padding: 6px 2px 0 6px;
   line-height: 1.2;
+}
+
+.container>main>.newSong {
+  display: flex;
+  flex-direction: column;
+}
+
+.container>main>.newSong a {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.container>main>.newSong li {
+  border-bottom: 1px solid #EFEFF0;
+}
+
+.container>main>.newSong a>.Song {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0;
+  width: 100%;
+}
+
+.container>main>.newSong a>.Song>.songName {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.container>main>.newSong a>.Song>.singer {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.container>main>.newSong a>.playSong {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.container>main>.newSong a>.playSong>img {
+  width: 22px;
+  height: 22px;
 }
