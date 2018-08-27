@@ -91,6 +91,9 @@ a {
   padding: 20px 0;
 }
 
+.container>ol main{
+  width: 100%;
+}
 
 main h2 {
   font-size: 17px;
