@@ -24,12 +24,18 @@
         </label>
         <input name="url" type="text" value="__url__">
       </div>
+      <div class="row">
+        <label>
+          封面
+        </label>
+        <input name="cover" type="text" value="__cover__">
+      </div>
       <div class="row actions">
         <button type="submit">保存</button>
       </div>
     </form>`,
     render(data = {}) {
-      let placeholders = ['name', 'url', 'singer', 'id']
+      let placeholders = ['name', 'url', 'singer', 'id', 'cover']
       let html = this.template
       placeholders.map((string) => {
         html = html.replace(`__${string}__`, data[string] || '')
@@ -50,7 +56,8 @@
       name: '',
       singer: '',
       url: '',
-      id: ''
+      id: '',
+      cover: ''
     },
     create(data) {
       let Song = AV.Object.extend('Song');
@@ -59,7 +66,8 @@
       return song.save({
         name: data.name,
         singer: data.singer,
-        url: data.url
+        url: data.url,
+        cover: data.cover
       }).then((newSong) => {
         let id = newSong.id
         let attributes = newSong.attributes
@@ -71,7 +79,7 @@
         console.log(error)
       })
     },
-    updata(data) {//卧槽，坑爹的文档，代码创建和手动创建的权限不一样
+    updata(data) { //卧槽，坑爹的文档，代码创建和手动创建的权限不一样
       // 第一个参数是 className，第二个参数是 objectId
       let Song = AV.Object.createWithoutData('Song', this.data.id);
       // 修改属性
@@ -79,7 +87,8 @@
       return Song.save({
         singer: data.singer,
         name: data.name,
-        url: data.url
+        url: data.url,
+        cover: data.cover
       }).then((response) => {
         console.log(response)
         Object.assign(this.data, data)
@@ -110,7 +119,7 @@
       })
     },
     create() {
-      let needs = 'name singer url'.split(' ')
+      let needs = 'name singer url cover'.split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()
@@ -121,7 +130,7 @@
       })
     },
     updata() {
-      let needs = 'name singer url'.split(' ')
+      let needs = 'name singer url cover'.split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()

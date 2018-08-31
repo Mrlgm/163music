@@ -5,20 +5,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/song.css">
   <title>歌曲播放</title>
 </head>
 
 <body>
-  歌曲播放页面
-  <div id="app">
-    <button class="play">play</button>
-    <button class="pause">pause</button>
-  </div>
-  <script src="./vendors/av-min.js"></script>
-  <script src="./js/init/init-av.js"></script>
-  <script src="./vendors/jquery.min.js"></script>
-  <script src="./js/admin/event-hub.js"></script>
-  <script src="./js/song/play.js"></script>
+  <div class="page" id="app">
+    <audio src="about:blank"></audio>
+    <div class="disc-container">
+      <img class="pointer" src="./img/needle-ip6.png " alt="">
+      <div class="disc">
+        <div class="icon-wrapper">
+          <img src="./img/play.png" class="icon icon-play">
+          <img src="./img/pause.png" class="icon icon-pause">
+        </div>
+        <img class="ring" src="./img/光盘.png" alt="">
+        <img class="light" src="./img/质感.png" alt="">
+        <img src="" alt="" class="cover">
+      </div>
+    </div>
+    <div class="song-description">
+      <h1>太平洋的风-胡德夫</h1>
+      <div class="lyric">
+        <div class="lines">
+
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      <a href="#">打开</a>
+      <a class="main" href="#">下载</a>
+    </div>
+    <script src="./vendors/av-min.js"></script>
+    <script src="./js/init/init-av.js"></script>
+    <script src="./vendors/jquery.min.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script src="./js/song/play.js"></script>
 </body>
 
 </html>
