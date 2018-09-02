@@ -30,12 +30,18 @@
         </label>
         <input name="cover" type="text" value="__cover__">
       </div>
+      <div class="row">
+        <label>
+          歌词
+        </label>
+        <textarea cols=100 rows=10 name="lyric">__lyric__</textarea>
+      </div>
       <div class="row actions">
         <button type="submit">保存</button>
       </div>
     </form>`,
     render(data = {}) {
-      let placeholders = ['name', 'url', 'singer', 'id', 'cover']
+      let placeholders = ['name', 'url', 'singer', 'id', 'cover', 'lyric']
       let html = this.template
       placeholders.map((string) => {
         html = html.replace(`__${string}__`, data[string] || '')
@@ -57,7 +63,8 @@
       singer: '',
       url: '',
       id: '',
-      cover: ''
+      cover: '',
+      lyric: ''
     },
     create(data) {
       let Song = AV.Object.extend('Song');
@@ -67,7 +74,8 @@
         name: data.name,
         singer: data.singer,
         url: data.url,
-        cover: data.cover
+        cover: data.cover,
+        lyric: data.lyric
       }).then((newSong) => {
         let id = newSong.id
         let attributes = newSong.attributes
@@ -88,7 +96,8 @@
         singer: data.singer,
         name: data.name,
         url: data.url,
-        cover: data.cover
+        cover: data.cover,
+        lyric: data.lyric
       }).then((response) => {
         console.log(response)
         Object.assign(this.data, data)
@@ -119,7 +128,7 @@
       })
     },
     create() {
-      let needs = 'name singer url cover'.split(' ')
+      let needs = 'name singer url cover lyric'.split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()
@@ -130,7 +139,7 @@
       })
     },
     updata() {
-      let needs = 'name singer url cover'.split(' ')
+      let needs = 'name singer url cover lyric'.split(' ')
       let data = {}
       needs.map((string) => {
         data[string] = this.view.$el.find(`[name="${string}"]`).val()

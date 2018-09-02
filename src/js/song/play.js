@@ -20,6 +20,17 @@
       } else {
         $(this.el).find('.disc-container').removeClass('playing')
       }
+      $(this.el).find('.song-description>h1').text(song.name)
+      let {
+        lyric
+      } = song
+      console.log(lyric.split('\n'))
+      let array = lyric.split('\n').map((string) => {
+        let p = document.createElement('p')
+        p.textContent = string
+        return p
+      })
+      console.log(array)
     },
     play() {
       $(this.el).find('audio')[0].play()
@@ -40,7 +51,6 @@
         url: ''
       },
       status: 'paused'
-
     },
     get(id) {
       var query = new AV.Query('Song')
