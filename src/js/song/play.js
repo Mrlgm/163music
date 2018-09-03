@@ -7,7 +7,7 @@
         status
       } = data
       console.log(status)
-      $(this.el).css('background-image', `url(${song.cover})`)
+      $('.bgimg').css('background-image', `url(${song.cover})`)
       $(this.el).find('img.cover').attr('src', song.cover)
       if ($(this.el).find('audio').attr('src') !== song.url) {
         let audio = $(this.el).find('audio').attr('src', song.url).get(0)
