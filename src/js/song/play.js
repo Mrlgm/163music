@@ -14,6 +14,9 @@
         audio.onended = () => {
           window.eventHub.triger('ended')
         }
+        audio.ontimeupdate = () => {
+          this.showLyric(audio.currentTime)
+        }
       }
       if (status === 'playing') {
         $(this.el).find('.disc-container').addClass('playing')
@@ -24,13 +27,24 @@
       let {
         lyric
       } = song
-      console.log(lyric.split('\n'))
       let array = lyric.split('\n').map((string) => {
         let p = document.createElement('p')
-        p.textContent = string
-        return p
+        let regex = /\[([\d:.]+)\](.+)/
+        let matches = string.match(regex)
+        if (matches) {
+          p.textContent = matches[2]
+          let time = matches[1]
+          let parts = time.split(':')
+          let minutes = parts[0]
+          let seconds = parts[1]
+          let newTime = parseInt(minutes, 10) * 60 + parseFloat(seconds, 10)
+          p.setAttribute('data-time', newTime)
+        } else {
+          p.textContent = string
+        }
+        $(this.el).find('.lyric>.lines').append(p)
       })
-      console.log(array)
+
     },
     play() {
       $(this.el).find('audio')[0].play()
@@ -39,6 +53,26 @@
     pause() {
       $(this.el).find('audio')[0].pause()
 
+    },
+    showLyric(time) {
+      let allP = $(this.el).find('.lyric>.lines>p')
+      let p
+      for (let i = 0; i < allP.length; i++) {
+        if (i === allP.length - 1) {
+          p = allP[i]
+          break
+        } else {
+          let currentTime = allP[i].getAttribute('data-time')
+          let nextTime = allP[i + 1].getAttribute('data-time')
+          if (currentTime <= time && nextTime > time) {
+            p = allP[i]
+            break
+          }
+        }
+      }
+      let height = p.getBoundingClientRect().top - $(this.el).find('.lyric>.lines')[0].getBoundingClientRect().top
+      $(this.el).find('.lyric>.lines').css('transform', `translateY(${-(height-25)}px)`)
+      $(p).addClass('active').siblings('.active').removeClass('active')
     }
   }
 
