@@ -40,10 +40,9 @@
         // 成功获得实例
         // Song 就是 Song 的对象实例
         let songs = Song.map((song) => {
-          return {
+          return Object.assign({
             id: song.id,
-            ...song.attributes
-          }
+          }, song.attributes)
         })
         this.data.songs = songs
         return songs
