@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "leancloud-storage": "^3.10.0",
     "plupload": "^2.3.6",
     "qiniu": "^7.2.1",
